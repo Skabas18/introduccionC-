@@ -1,33 +1,51 @@
-﻿int totalJugador = 0;
+﻿using System.Drawing;
+
+Console.WriteLine("Hello, World!");
+int totalJugador = 0;
 int totalDealer = 0;
 int num = 0;
 string message = "";
+string controlOtraCarta = "";
 string switchControl = "menu";
 
-//Blackjack, Juntar 21 pidiendo cartas o en caso de tener menos de 21 igual tener mayor puntuación que el dealer
+System.Random random = new System.Random();
 
-while (true){
+//Blackjack, Juntar 21 pidiendo, en casa de pasarte de 21 pierdes.
+//cartas o en caso de tener menos
+//de 21 igual tener mayor puntuación que el dealer
+while (true)
+{
+    totalJugador = 0;
+    totalDealer = 0;
+
     switch (switchControl)
     {
         case "menu":
-            Console.WriteLine("Welcome al C A S I N O");
-
-            Console.WriteLine("Escriba '21' para jugar al 21");
+            Console.WriteLine("Welcome al c a s i n o");
+            Console.WriteLine("Escriba ‘21’ para jugar al 21");
             switchControl = Console.ReadLine();
             break;
         case "21":
-            do {
-                System.Random random = new System.Random();
+            do
+            {
                 num = random.Next(1, 12);
                 totalJugador = totalJugador + num;
-                Console.WriteLine("Toma tu carta, jugador");
-                Console.WriteLine($"Te salio el número: {num}");
-                Console.WriteLine("Desas otra carta? ");
-            }
-            while (Console.ReadLine() == "Si" || Console.ReadLine() == "si" || Console.ReadLine() == "SI" || Console.ReadLine() == "yes") ;
+                Console.WriteLine("Toma tu carta, jugador,");
+                Console.WriteLine($"Te salió el número: {num} ");
+                Console.WriteLine("¿Deseas otra carta ?");
+                controlOtraCarta = Console.ReadLine();
+
+            } while (controlOtraCarta == "Si" ||
+        controlOtraCarta == "si"
+        || controlOtraCarta == "yes");
+
+            totalDealer = random.Next(14, 23);
+            Console.WriteLine($"El dealer tiene {totalDealer}");
+
             if (totalJugador > totalDealer && totalJugador < 22)
             {
                 message = "Venciste al dealer, felicidades";
+                switchControl = "menu";
             }
             else if (totalJugador >= 22)
             {
@@ -37,17 +55,16 @@ while (true){
             else if (totalJugador <= totalDealer)
             {
                 message = "Perdiste vs el dealer, lo siento";
+                switchControl = "menu";
             }
             else
             {
-                message = "Condición no valida";
+                message = "condición no válida";
             }
+            Console.WriteLine(message);
             break;
         default:
-            Console.WriteLine("Valor ingresado no valido en el C A S I N O");
+            Console.WriteLine("Valor ingresa no válido en el  C A S I N O");
             break;
     }
-
-
-    Console.WriteLine(message);
 }
